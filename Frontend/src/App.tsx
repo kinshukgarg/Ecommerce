@@ -2,11 +2,13 @@ import { BrowserRouter as Router,Routes,Route } from "react-router-dom"
 import { lazy,Suspense } from "react"
 import Header from "./componets/header"
 import Loader from "./componets/loader"
-import Shipping from "./pages/shipping"
+
+
 const Home = lazy(() => import("./pages/Home"))
 const Cart =  lazy(() => import("./pages/Cart"))
 const Search =  lazy(() => import( "./pages/Search"))
-const shipping= lazy(() => import( "./pages/shipping"))
+const Shipping= lazy(() => import( "./pages/shipping"))
+const Login= lazy(() => import( "./pages/login"))
 //admin 
 const Dashboard = lazy(() => import("./pages/admin/dashboard"));
 const Products = lazy(() => import("./pages/admin/products"));
@@ -37,6 +39,14 @@ const App = () => {
   <Route path="/search" element={<Search/>}></Route>
   <Route path="/cart" element={<Cart/>}></Route>
   <Route path="/" element={<Home/>}></Route>
+
+  {/* Not logged in */ }
+
+  <Route path="/login" element={<Login/>}></Route>
+
+
+
+
 
 
 {/* logged in user Route*/ }
