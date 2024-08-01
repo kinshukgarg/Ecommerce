@@ -2,5 +2,30 @@
 
 
 .product-search-page{
-    
+    padding: 2rem;
+    @include flex(row,flex-start,stretch,2rem);
+    min-height: calc(100vh - 6.5vh);
+
+
+
+    >aside{
+        min-width: 20rem;
+       box-shadow: 2px 5px 10px rgba(0,0,0,0.247);
+        padding: 2rem;
+        @include flex(column,flex-start,stretch,0.5rem);
+
+        >h2{
+            @include heading;
+        }
+
+        >div{
+            >input,>select{
+       @include inputStyle(100%,1rem,white,1px solid rgba(154,154,154,0.38));
+       border-radius: 10px;
+       margin: 0.5rem;
+
+            }
+        }
+
+    }
 }
