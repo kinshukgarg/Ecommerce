@@ -9,6 +9,7 @@ const Cart =  lazy(() => import("./pages/Cart"))
 const Search =  lazy(() => import( "./pages/Search"))
 const Shipping= lazy(() => import( "./pages/shipping"))
 
+const OrdersDetails= lazy(() => import( "./pages/order-details"))
 const Orders= lazy(() => import( "./pages/orders"))
 const Login= lazy(() => import( "./pages/login"))
 //admin 
@@ -57,6 +58,7 @@ const App = () => {
 
 <Route path="/shipping" element={<Shipping/>}></Route>
 <Route path="/orders" element={<Orders/>}></Route>
+<Route path="/order/:id" element={<OrdersDetails/>}></Route>
 
 </Route>
 
