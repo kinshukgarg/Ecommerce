@@ -12,10 +12,9 @@ export const errorMiddleware = (err: ErrorHandler, req: Request, resp: Response,
     });
 };
 
-export const TryCatch= (func:ControllerType) => (req:Request,resp:Response,next:NextFunction) =>{
-return Promise.resolve(func(req,resp,next)).catch((next)=>{
-
-
-});
-}
+export const TryCatch =
+  (func: ControllerType) =>
+  (req: Request, res: Response, next: NextFunction) => {
+    return Promise.resolve(func(req, res, next)).catch(next);
+  };
 
