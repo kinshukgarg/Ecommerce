@@ -6,3 +6,5 @@ export const errorMiddleware = (err, req, resp, next) => {
         message: err.message
     });
 };
+export const TryCatch = () => () => {
+};

@@ -10,3 +10,7 @@ export const errorMiddleware = (err: ErrorHandler, req: Request, resp: Response,
         message: err.message
     });
 };
+
+export const TryCatch= () => () =>{
+
+}
