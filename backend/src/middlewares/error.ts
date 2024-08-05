@@ -8,7 +8,8 @@ export const errorMiddleware=(err:Error,req:Request,resp:Response,next:NextFunct
 
 
 
-    err.message ||=""; 
+    err.message ||="Internal server error"; 
+    err.message ||="Internal server error"; 
     return resp.status(400).json({
         success:false,
         message:"Some Error"
