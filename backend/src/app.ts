@@ -1,4 +1,7 @@
 import express, { NextFunction,Response,Request } from "express";
+import { connect } from "http2";
+import { connectDb } from "./utils/feature.js";
+import { errorMiddleware } from "./middlewares/error.js";
 
 const app = express();
 
@@ -11,9 +14,8 @@ app.use(express.json());
 //importing Routes
 
 import userRoute from "./routes/user.js";
-import { connect } from "http2";
-import { connectDb } from "./utils/feature.js";
-import { errorMiddleware } from "./middlewares/error.js";
+import productRoute from "./routes/product.js";
+
 
 app.get("/", (req, resp) => {
   resp.send("Api working");
@@ -22,7 +24,16 @@ app.get("/", (req, resp) => {
 //using Routes
 
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/product", productRoute);
 
+
+
+
+
+
+
+//middlewares
+app.use("/uploads", express.static("uploads"));
 app.use(errorMiddleware);
 
 app.listen(port, () => {

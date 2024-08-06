@@ -1,16 +1,18 @@
-import multer from 'multer';
+import multer from "multer";
+import { v4 as uuid } from "uuid";
 
-const storage=multer.diskStorage({
-
-
-  destination(req,file,callback){
-    callback(null,"uploads")
+const storage = multer.diskStorage({
+  destination(req, file, callback) {
+    callback(null, "uploads");
   },
-  filename(req,file,callback){
-    callback(null,file.originalname);
-  },
+  filename(req, file, callback) {
+    const id = uuid();
+    const extName = file.originalname.split(".").pop();
 
+    // const filename= `${id}.${extName}`;
+
+    callback(null, `${id}.${extName}`);
+  },
 });
 
-export const singleUpload=multer({storage}).single("photo")
-
+export const singleUpload = multer({ storage }).single("photo");
