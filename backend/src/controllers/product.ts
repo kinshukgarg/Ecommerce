@@ -4,6 +4,8 @@ import { Request } from "express";
 import { BaseQuery, NewProductRequestBody } from "../types/types.js";
 import ErrorHandler from "../utils/utility-class.js";
 import { rm } from "fs";
+import { myCache } from "../app.js";
+// import {faker} from '@faker-js/faker'
 
 export const newProduct = TryCatch(
   async (req: Request<{}, {}, NewProductRequestBody>, res, next) => {
@@ -38,6 +40,9 @@ export const newProduct = TryCatch(
 export const getlatestProducts = TryCatch(async (req, res, next) => {
   // let products;
   const products = await Product.find({}).sort({ createdAt: -1 }).limit(5);
+
+
+  myCache.set("latest-product",JSON.stringify(products))
 
   // products = await redis.get("latest-products");
 
