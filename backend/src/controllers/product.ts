@@ -37,37 +37,45 @@ export const newProduct = TryCatch(
   }
 );
 
+// Revalidate on New,Update,Delete Product & on New Order
 export const getlatestProducts = TryCatch(async (req, res, next) => {
-  // let products;
-  const products = await Product.find({}).sort({ createdAt: -1 }).limit(5);
+   let products=[]
+
+   if (myCache.has("latest-product"))
+   products=JSON.parse(myCache.get("latest-product")!);
+  else{
+    const products = await Product.find({}).sort({ createdAt: -1 }).limit(5);
 
 
   myCache.set("latest-product",JSON.stringify(products))
+  }
 
-  // products = await redis.get("latest-products");
-
-  // if (products) products = JSON.parse(products);
-  // else {
-  //   products = await Product.find({}).sort({ createdAt: -1 }).limit(5);
-  //   await redis.setex("latest-products", redisTTL, JSON.stringify(products));
-  // }
-
+  
   return res.status(200).json({
     success: true,
     products,
   });
 });
 export const getSingleProduct = TryCatch(async (req, res, next) => {
-  // let product;
+  let product;
   const id = req.params.id;
-  const product = await Product.findById(id);
+if (myCache.has(`product-$(id)`)) product =JSON.parse(myCache.get(`product-$(id)`)as string);
+else{
+  product = await Product.findById(id);
+  if (!product) return next(new ErrorHandler("Product Not Found", 404));
+
+  myCache.set(`product-${id}`,JSON.stringify(product))
+}
+
+  
+  // const product = await Product.findById(id);
   // const key = `product-${id}`;
 
   // product = await redis.get(key);
   // if (product) product = JSON.parse(product);
   // else {
   //   product = await Product.findById(id);
-  if (!product) return next(new ErrorHandler("Product Not Found", 404));
+  
 
   //   await redis.setex(key, redisTTL, JSON.stringify(product));
   // }
@@ -77,9 +85,17 @@ export const getSingleProduct = TryCatch(async (req, res, next) => {
     product,
   });
 });
+
+// Revalidate on New,Update,Delete Product & on New Order
 export const getAllCategories = TryCatch(async (req, res, next) => {
-  // let categories;
-  const categories = await Product.distinct("category");
+ let categories;
+ if (myCache.has("categories"))
+  categories=JSON.parse(myCache.get("categories") as string )
+  else{
+    categories= await Product.distinct("category");
+    myCache.set("categories",JSON.stringify(categories))
+}
+
 
   // categories = await redis.get("categories");
 
@@ -165,8 +181,17 @@ export const deleteProduct = TryCatch(async (req, res, next) => {
 });
 
 export const getAdminProducts = TryCatch(async (req, res, next) => {
-  //  let products;
-  const products = await Product.find({});
+   let products;
+
+   if (myCache.has("all-products"))
+    products= JSON.parse(myCache.get("all-products")as string)
+  else{
+const products = await Product.find({})
+myCache.set("all-products",JSON.stringify(products))
+  }
+  
+
+  
 
   // products = await redis.get("all-products");
 

@@ -5,3 +5,5 @@ export const connectDb = () => {
     }).then(c => console.log(`DB connected to ${c.connection.host}`))
         .catch(e => console.log(e));
 };
+export const invalidateCache = () => {
+};
