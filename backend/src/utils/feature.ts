@@ -24,6 +24,14 @@ export const invalidateCache = async ({
  const productkeys: string []=["latest-products","categories","all-products"];
 
  const products = await Product.find({}).select("_id");
+ 
+ products.forEach(i=>{
+    productkeys.push(`product-${i._id}`);
+ })
+
+
+
+
  myCache.del(productkeys)
     }
 
