@@ -3,12 +3,20 @@ import { connect } from "http2";
 import { connectDb } from "./utils/feature.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import NodeCache from "node-cache";
+import {config} from "dotenv"
+import
 
 const app = express();
 
-const port = 9000;
 
-connectDb();
+config({
+  path: "./.env"
+})
+
+const port = process.env.PORT || 9000;
+const mongoURI= process.env.MONGO_URI || "";
+
+connectDb(mongoURI);
 
 
 
