@@ -19,6 +19,7 @@ app.use(express.json());
 
 import userRoute from "./routes/user.js";
 import productRoute from "./routes/product.js";
+import orderRoute from "./routes/orders.js";
 
 
 app.get("/", (req, resp) => {
@@ -29,6 +30,7 @@ app.get("/", (req, resp) => {
 
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/product", productRoute);
+app.use("/api/v1/order", orderRoute);
 
 
 

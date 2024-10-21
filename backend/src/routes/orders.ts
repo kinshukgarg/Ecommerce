@@ -1,5 +1,6 @@
 import express from "express";
 import { adminOnly } from "../middlewares/auth.js";
+import { newOrder } from "../controllers/order.js";
 // import {
 //   allOrders,
 //   deleteOrder,
